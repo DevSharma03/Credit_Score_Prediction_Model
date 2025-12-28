@@ -3,7 +3,7 @@
 ## 🚀 Introduction
 
 The **Credit Score Prediction Model** is a machine learning–based solution designed to predict an individual’s credit score using financial and demographic attributes.  
-This project demonstrates a complete end-to-end ML workflow, covering data preprocessing, model training, evaluation, and deployment readiness.
+This project demonstrates a complete end-to-end ML workflow, covering data preprocessing, model training, API-based inference, and Dockerized deployment.
 
 The repository is structured to be clean, modular, and scalable—making it suitable for academic projects, fintech prototypes, and real-world credit risk assessment systems.
 
@@ -13,10 +13,10 @@ The repository is structured to be clean, modular, and scalable—making it suit
 
 - 📊 Data preprocessing and feature engineering  
 - 🤖 Supervised machine learning model for credit score prediction  
-- 🧠 Model persistence for reuse and inference  
+- 🧠 REST API for real-time credit score prediction  
+- 🐳 Dockerized API for consistent deployment  
 - 🧪 Reproducible and modular project structure  
-- 🐳 Dockerized setup for consistent environment and deployment  
-- 📈 Evaluation metrics for model performance analysis  
+- 📈 Model evaluation and performance analysis  
 
 ---
 
@@ -27,6 +27,7 @@ The repository is structured to be clean, modular, and scalable—making it suit
 | Programming Language | Python |
 | Data Processing | Pandas, NumPy |
 | Machine Learning | Scikit-learn |
+| API Framework | FastAPI |
 | Visualization | Matplotlib, Seaborn |
 | Environment | Docker |
 | Dependency Management | requirements.txt |
@@ -39,8 +40,9 @@ The repository is structured to be clean, modular, and scalable—making it suit
 Credit_Score_Prediction_Model/
 ├── data/                   # Raw and processed datasets
 ├── model/                  # Saved / trained model artifacts
-├── src/                    # Source code (training, prediction, utilities)
-├── Dockerfile              # Docker configuration
+├── src/                    # Training, prediction logic, utilities
+├── api/                    # FastAPI application for inference
+├── Dockerfile              # Docker configuration for API
 ├── requirements.txt        # Python dependencies
 └── README.md
 ```
@@ -53,20 +55,20 @@ Credit_Score_Prediction_Model/
 
 - Python 3.8+
 - Git
-- Docker (optional)
+- Docker (for containerized API)
 
 ---
 
 ## 📦 Installation
 
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/DevSharma03/Credit_Score_Prediction_Model.git
 cd Credit_Score_Prediction_Model
 ```
 
-### 2. Create a Virtual Environment (Recommended)
+### 2️⃣ Create a Virtual Environment (Recommended)
 
 ```bash
 python -m venv venv
@@ -79,12 +81,12 @@ Activate it:
 venv\Scripts\activate
 ```
 
-**macOS/Linux**
+**macOS / Linux**
 ```bash
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -94,26 +96,95 @@ pip install -r requirements.txt
 
 ## ▶️ Running the Project
 
-### Train the Model
+### 🔹 1. Train the Model (Local)
+
+Train the machine learning model and save it to the `model/` directory:
 
 ```bash
 python src/train.py
 ```
 
-### Make Predictions
+---
+
+### 🔹 2. Run Prediction API (Local)
+
+Start the FastAPI server for prediction:
 
 ```bash
-python src/predict.py
+uvicorn api.main:app --reload
 ```
+
+- API will be available at: `http://127.0.0.1:8000`
+- Swagger UI: `http://127.0.0.1:8000/docs`
+
+---
+
+### 🔹 3. Run Prediction API using Docker
+
+#### Build Docker Image
+
+```bash
+docker build -t credit-score-api .
+```
+
+#### Run Docker Container
+
+```bash
+docker run -p 8000:8000 credit-score-api
+```
+
+- API available at: `http://localhost:8000`
+- Swagger UI: `http://localhost:8000/docs`
 
 ---
 
 ## 🛟 Troubleshooting
 
-- **ModuleNotFoundError**: Ensure virtual environment is activated  
-- **FileNotFoundError**: Check dataset paths inside `data/`  
-- **Model not found**: Run training before prediction  
-- **Docker issues**: Ensure Docker is running and rebuild image  
+### Common Issues & Fixes
+
+#### ❌ ModuleNotFoundError
+- Ensure the virtual environment is activated
+- Reinstall dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+#### ❌ FileNotFoundError (Data or Model)
+- Verify dataset exists inside `data/`
+- Ensure model file exists inside `model/`
+- Run training before starting the API:
+```bash
+python src/train.py
+```
+
+---
+
+#### ❌ API Not Starting
+- Ensure FastAPI and Uvicorn are installed
+- Check correct module path:
+```bash
+uvicorn api.main:app --reload
+```
+
+---
+
+#### ❌ Docker Build Fails
+- Ensure Docker is running
+- Clear cache and rebuild:
+```bash
+docker build --no-cache -t credit-score-api .
+```
+
+---
+
+#### ❌ Docker Container Exits Immediately
+- Check logs:
+```bash
+docker logs <container_id>
+```
+- Ensure model files are copied correctly in Dockerfile
 
 ---
 
@@ -132,4 +203,3 @@ This project is licensed under the **MIT License**.
 ---
 
 ⭐ If you find this project useful, consider starring the repository!
-
