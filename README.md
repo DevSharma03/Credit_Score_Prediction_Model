@@ -101,7 +101,7 @@ pip install -r requirements.txt
 Train the machine learning model and save it to the `model/` directory:
 
 ```bash
-python src/train.py
+python src/Training Pipeline/credit_analysis_pipeline.ipynb
 ```
 
 ---
@@ -111,7 +111,7 @@ python src/train.py
 Start the FastAPI server for prediction:
 
 ```bash
-uvicorn api.main:app --reload
+py -m uvicorn api.main:app --reload
 ```
 
 - API will be available at: `http://127.0.0.1:8000`
