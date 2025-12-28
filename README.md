@@ -5,8 +5,6 @@
 The **Credit Score Prediction Model** is a machine learning–based solution designed to predict an individual’s credit score using financial and demographic attributes.  
 This project demonstrates a complete end-to-end ML workflow, covering data preprocessing, model training, API-based inference, and Dockerized deployment.
 
-The repository is structured to be clean, modular, and scalable—making it suitable for academic projects, fintech prototypes, and real-world credit risk assessment systems.
-
 ---
 
 ## ⭐ Features
